@@ -1,4 +1,5 @@
-# ops-dev-sample: Example project for demonstrating various operations support infrastructure components and patterns
+# ops-dev-sample 
+Example project for demonstrating various operations support infrastructure components and patterns
 
 ## Included components
 
