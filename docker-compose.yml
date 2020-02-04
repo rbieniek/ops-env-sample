@@ -56,20 +56,40 @@ services:
       - data03:/usr/share/elasticsearch/data
     networks:
       - elastic
+  kibana:
+    build:
+      context: build-kibana
+      shm_size: '4gb'
+    image: si-aepa/kibana:7.5.2 
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://es01:9200 http://es02:9200 http://es03:9200
+    depends_on:
+      - es01
+      - es02
+      - es03
+    ports:
+      - 127.0.0.1:5601:5601
+    networks:
+      - elastic
 
 volumes:
   data01:
     driver: local-persist
     driver_opts:
-      mountpoint: /tmp/data/ops-env-sample/es01-data
+      mountpoint: /data/ops-env-sample/es01-data
   data02:
     driver: local-persist
     driver_opts:
-      mountpoint: /tmp/data/ops-env-sample/es02-data
+      mountpoint: /data/ops-env-sample/es02-data
   data03:
     driver: local-persist
     driver_opts:
-      mountpoint: /tmp/data/ops-env-sample/es03-data
+      mountpoint: /data/ops-env-sample/es03-data
+  kibana:
+    driver: local-persist
+    driver_opts:
+      mountpoint: /data/ops-env-sample/kibana
 
 networks:
   elastic:
